@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CrnkovicIvona/api_test.git"
@@ -17,7 +19,11 @@
   },
   "homepage": "https://github.com/CrnkovicIvona/api_test#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.3"
+    "@types/node": "^26.6.3",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "typescript-eslint": "^8.70.1"
   }
 }
