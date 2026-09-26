@@ -75,6 +75,9 @@ To view the HTML report after a run:
 npx playwright show-report
 ​```
 
+## Postman collection
+
+The API endpoints were also explored and validated manually using a Postman collection before automating them with Playwright — organized into `Todos` and `Users` folders, covering GET, POST, PUT, PATCH, and DELETE requests.
 
 
 # How this project was built (from scratch)
