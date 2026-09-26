@@ -1,0 +1,375 @@
+{
+  "info": {
+    "_postman_id": "3f53e693-33db-4180-a946-6d2210c7db27",
+    "name": "API Tests",
+    "description": "Postman collection equivalent to the Playwright API tests in tests/api/todos.spec.ts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58536421",
+    "_collection_link": "https://go.postman.co/collection/58536421-3f53e693-33db-4180-a946-6d2210c7db27?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Todos",
+      "item": [
+        {
+          "name": "GET /todos/1 returns a valid todo object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.test('Todo has the expected fields', function () {",
+                  "    pm.expect(body.id).to.eql(1);",
+                  "    pm.expect(body.userId).to.be.a('number');",
+                  "    pm.expect(body.title).to.be.a('string');",
+                  "    pm.expect(body.completed).to.be.a('boolean');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/todos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /todos returns a list of 200 items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Response is successful', function () {",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);",
+                  "});",
+                  "",
+                  "const todos = pm.response.json();",
+                  "pm.test('Response is an array with 200 items', function () {",
+                  "    pm.expect(todos).to.be.an('array');",
+                  "    pm.expect(todos).to.have.lengthOf(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/todos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /todos creates fake todo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.test('Created todo has the expected fields', function () {",
+                  "    pm.expect(body.id).to.be.a('number');",
+                  "    pm.expect(body.title).to.eql('New Todo');",
+                  "    pm.expect(body.completed).to.eql(false);",
+                  "    pm.expect(body.userId).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Todo\",\n  \"completed\": false,\n  \"userId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/todos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /todos/1 updates todo (fake)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.test('Updated todo has the expected fields', function () {",
+                  "    pm.expect(body.id).to.eql(1);",
+                  "    pm.expect(body.title).to.eql('Updated Todo');",
+                  "    pm.expect(body.completed).to.eql(true);",
+                  "    pm.expect(body.userId).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"title\": \"Updated Todo\",\n  \"completed\": true,\n  \"userId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/todos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH /todos/1 updates todo partially (fake)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.test('Todo is marked as completed', function () {",
+                  "    pm.expect(body.completed).to.eql(true);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"completed\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/todos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /todos/1 returns empty response (fake)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/todos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "todos",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "GET /users/8 returns a valid user object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const body = pm.response.json();",
+                  "pm.test('User has the expected structure', function () {",
+                  "    pm.expect(body.id).to.eql(8);",
+                  "    pm.expect(body.name).to.be.a('string');",
+                  "    pm.expect(body.username).to.be.a('string');",
+                  "    pm.expect(body.email).to.be.a('string');",
+                  "    pm.expect(body.address.street).to.be.a('string');",
+                  "    pm.expect(body.address.suite).to.be.a('string');",
+                  "    pm.expect(body.address.city).to.be.a('string');",
+                  "    pm.expect(body.address.zipcode).to.be.a('string');",
+                  "    pm.expect(body.address.geo.lat).to.be.a('string');",
+                  "    pm.expect(body.address.geo.lng).to.be.a('string');",
+                  "    pm.expect(body.phone).to.be.a('string');",
+                  "    pm.expect(body.website).to.be.a('string');",
+                  "    pm.expect(body.company.name).to.be.a('string');",
+                  "    pm.expect(body.company.catchPhrase).to.be.a('string');",
+                  "    pm.expect(body.company.bs).to.be.a('string');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/8",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users returns a list of 10 items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Response is successful', function () {",
+                  "    pm.expect(pm.response.code).to.be.within(200, 299);",
+                  "});",
+                  "",
+                  "const users = pm.response.json();",
+                  "pm.test('Response is an array with 10 items', function () {",
+                  "    pm.expect(users).to.be.an('array');",
+                  "    pm.expect(users).to.have.lengthOf(10);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com"
+    }
+  ]
+}
